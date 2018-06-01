@@ -17,12 +17,13 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
 ENV HOME /root
+ENV DB_HOST postgres
 
 # set a better shell prompt
 RUN echo 'export PS1="[\u@docker] \W # "' >> /root/.bash_profile
 
 # Install dependecies
-RUN yum -y install httpd postgresql postgresql-server postgresql-contrib python-lxml python-imaging python-crypto python-psycopg2 unzip git ImageMagick
+RUN yum -y install httpd python-lxml python-imaging python-crypto python-psycopg2 unzip git ImageMagick
 # TODO add ffmpeg
 
 # install supervisord
@@ -43,19 +44,6 @@ ADD bootstrap.sh /usr/local/bin/bootstrap.sh
 
 # Clean up
 RUN yum clean all
-
-# initialize postgresql data files
-RUN service postgresql initdb
-
-# get and install Tactic
-RUN git clone -b 4.5 --depth 1 https://github.com/Southpaw-TACTIC/TACTIC.git && \
-    cp TACTIC/src/install/postgresql/pg_hba.conf /var/lib/pgsql/data/pg_hba.conf && \
-    chown postgres:postgres /var/lib/pgsql/data/pg_hba.conf && \
-    service postgresql start && \
-    yes | python TACTIC/src/install/install.py -d && \
-    service postgresql stop && \
-    cp /home/apache/tactic_data/config/tactic.conf /etc/httpd/conf.d/ && \
-    rm -r TACTIC
 
 EXPOSE 80 22
 
