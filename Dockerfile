@@ -17,13 +17,12 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
 ENV HOME /root
-ENV DB_HOST postgres
 
 # set a better shell prompt
 RUN echo 'export PS1="[\u@docker] \W # "' >> /root/.bash_profile
 
 # Install dependecies
-RUN yum -y install httpd python-lxml python-imaging python-crypto python-psycopg2 unzip git ImageMagick
+RUN yum -y install httpd postgresql postgresql-server postgresql-contrib python-lxml python-imaging python-crypto python-psycopg2 unzip git ImageMagick
 # TODO add ffmpeg
 
 # install supervisord
