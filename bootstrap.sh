@@ -15,7 +15,7 @@ fi
 rm -rf /tactic
 git clone -b "hutch-4.5" --depth 1 https://fca79a5c03d66de2f97f586540908cc718706f49:x-oauth-basic@github.com/homee-engineering/TACTIC.git /tactic
 yes | python /tactic/src/install/install.py -d
-cp /home/apache/tactic_data/config/tactic.conf /etc/httpd/conf.d/
+cp /home/tacticadmin/tactic_data/config/tactic.conf /etc/httpd/conf.d/
 rm -r /tactic
 
 # Set root password
