@@ -5,8 +5,12 @@ printf "Host: %s\n" "$PGHOST"
 printf "Port: %s\n" "$PGPORT"
 printf "User: %s\n" "$PGUSER"
 
-dropdb -h $PGHOST -U $PGUSER -p $PGPORT -e "sthpw"
-createdb -h $PGHOST -U $PGUSER -p $PGPORT -E UNICODE -e "sthpw"
+if [ "$( psql -tAc "SELECT 1 FROM pg_database WHERE datname='sthpw'" )" = '1' ]; then
+    dropdb -h $PGHOST -U $PGUSER -p $PGPORT -e "sthpw"
+    createdb -h $PGHOST -U $PGUSER -p $PGPORT -E UNICODE -e "sthpw"
+else
+    createdb -h $PGHOST -U $PGUSER -p $PGPORT -E UNICODE "sthpw"
+fi
 
 rm -rf /tactic
 git clone -b "hutch-4.5" --depth 1 https://fca79a5c03d66de2f97f586540908cc718706f49:x-oauth-basic@github.com/homee-engineering/TACTIC.git /tactic
