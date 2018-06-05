@@ -4,7 +4,6 @@
 ############################################################
 
 FROM centos:centos6
-MAINTAINER Diego Cortassa <diego@cortassa.net>
 
 ENV REFRESHED_AT 2016-10-23
 
