@@ -5,11 +5,13 @@ printf "Host: %s\n" "$PGHOST"
 printf "Port: %s\n" "$PGPORT"
 printf "User: %s\n" "$PGUSER"
 
-while ! nc -z $PGHOST $PGPORT; do sleep 3; done
+until pg_isready -h $PGHOST -p $PGPORT -U $PGUSER
+do
+  echo "Waiting for $PGHOST"
+  sleep 2;
+done
 
 if [ "$( psql -tAc "SELECT 1 FROM pg_database WHERE datname='sthpw'" )" = '1' ]; then
-    # dropdb -h $PGHOST -U $PGUSER -p $PGPORT -e "sthpw"
-    # createdb -h $PGHOST -U $PGUSER -p $PGPORT -E UNICODE -e "sthpw"
     echo "Database 'sthpw' found."
 else
     createdb -h $PGHOST -U $PGUSER -p $PGPORT -E UNICODE -e "sthpw"
