@@ -7,7 +7,7 @@ printf "User: %s\n" "$PGUSER"
 
 until pg_isready -h $PGHOST -p $PGPORT -U $PGUSER
 do
-  echo "Waiting..."
+  echo "Waiting... for $PGHOST"
   sleep 2;
 done
 
