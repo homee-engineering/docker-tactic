@@ -2,8 +2,20 @@
 # Dockerfile to run Tactic Containers 
 # Based on Centos 6 image
 ############################################################
-
 FROM centos:centos6
+
+ARG PGHOST=postgres
+ARG PGPORT=5432
+ARG PGUSER=potsgres
+ARG PGPASSWORD=homefries69
+ARG ROOT_PASSWORD=homefries69
+
+ENV PGHOST=$PGHOST
+ENV PGPORT=$PGPORT
+ENV PGUSER=$PGUSER
+ENV PGHOST=$PGHOST
+ENV PGPASSWORD=$PGPASSWORD
+ENV ROOT_PASSWORD=$ROOT_PASSWORD
 
 ENV REFRESHED_AT 2016-10-23
 
